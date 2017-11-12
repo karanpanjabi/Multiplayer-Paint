@@ -9,4 +9,5 @@ serv.connect((hostIP,port))
 while True:
     s = input()
     serv.send(bytes(s,'UTF-8'))
-    break
+    if(s=='q'):
+        break
