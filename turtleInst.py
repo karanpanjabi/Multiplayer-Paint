@@ -4,6 +4,7 @@ class TurtleInstance(turtle.Turtle):
         turtle.Turtle.__init__(self)
         self.setName(name)
         self.setColor(color)
+        self.speed(0)
         pass
     def setName(self,name):
         self.name = name

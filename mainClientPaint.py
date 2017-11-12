@@ -1,4 +1,4 @@
-import threadedServer
+import threadedClient
 import turtle
 from drawableTurt import DrawableTurtle
 import _thread as thread
@@ -7,22 +7,21 @@ import time
 turt = DrawableTurtle()
 
 #send our turtle's data
-#threadedServer.coordData
+#threadedClient.coordData
 def updateCoordData(event):
     if(turt.isDrawing):
         s = str(turt.pos())
-        threadedServer.coordData = bytes(s,'UTF-8')
-        # print("Updated coordData to",threadedServer.coordData)
+        threadedClient.coordData = bytes(s,'UTF-8')
 turtle.getcanvas().bind('<Motion>',updateCoordData, add="+")
 
 #receive and update other turtle's data
-#threadedServer.playerX.turtle
+#threadedClient.playerX.turtle
 def updatePlayerX(*args):
     while True:
-        if(threadedServer.receivedData):
-            x,y = eval(threadedServer.receivedData.decode('UTF-8'))
-            threadedServer.playerX.turtle.goto(x,y)
-            threadedServer.receivedData = None
+        if(threadedClient.receivedData):
+            x,y = eval(threadedClient.receivedData.decode('UTF-8'))
+            threadedClient.playerX.turtle.goto(x,y)
+            threadedClient.receivedData = None
         time.sleep(0.1)
 thread.start_new_thread(updatePlayerX, tuple())
 

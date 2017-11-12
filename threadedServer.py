@@ -29,16 +29,17 @@ def updateReceivedData(*args):
             if not receivedData:
                 break
             print(receivedData)
-        time.sleep(0.1)
+        time.sleep(0.05)
 thread.start_new_thread(updateReceivedData, tuple())
 
 def sendData(*args):
     global coordData
     while True:
-        if coordData is not None:
-            serv.send(coordData)
+        if coordData is not None and playerX is not None:
+            # print(coordData)
+            playerX.sock.send(coordData)
             coordData = None
-        time.sleep(0.1)
+        time.sleep(0.05)
 thread.start_new_thread(sendData, tuple())
 
 if __name__ == '__main__':
