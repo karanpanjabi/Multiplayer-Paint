@@ -5,6 +5,7 @@ class TurtleInstance(turtle.Turtle):
         self.setName(name)
         self.setColor(color)
         self.speed(0)
+        self.penup()
         pass
     def setName(self,name):
         self.name = name
