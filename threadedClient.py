@@ -11,17 +11,7 @@ serv.connect((hostIP,port))
 playerX = client(serv)
 
 receivedData = None
-coordData = None
-
-def sendData(*args):
-    global coordData
-    while True:
-        if coordData is not None:
-            serv.send(coordData)
-            coordData = None
-        time.sleep(0.05)
-
-thread.start_new_thread(sendData, tuple())
+coordData = []
 
 def updateReceivedData(*args):
     global receivedData
@@ -30,8 +20,19 @@ def updateReceivedData(*args):
         # print(receivedData)
         if not receivedData:
             break
-        time.sleep(0.05)
+        time.sleep(0.5)
 thread.start_new_thread(updateReceivedData, tuple())
+
+def sendData(*args):
+    global coordData
+    while True:
+        if len(coordData)>0:
+            coordData = bytes(str(coordData),'UTF-8')
+            serv.send(coordData)
+            coordData = []
+        time.sleep(0.5)
+
+thread.start_new_thread(sendData, tuple())
 
 if __name__ == '__main__':
     while True:

@@ -11,7 +11,7 @@ serv.listen(5)
 
 playerX = None
 receivedData = None
-coordData = None
+coordData = []
 
 def listenForConnection(*args):
     global playerX
@@ -28,18 +28,18 @@ def updateReceivedData(*args):
             receivedData = playerX.sock.recv(1024)
             if not receivedData:
                 break
-            print(receivedData)
-        time.sleep(0.05)
+            # print(receivedData)
+        time.sleep(0.5)
 thread.start_new_thread(updateReceivedData, tuple())
 
 def sendData(*args):
     global coordData
     while True:
-        if coordData is not None and playerX is not None:
-            # print(coordData)
+        if len(coordData)>0 and playerX is not None:
+            coordData = bytes(str(coordData),'UTF-8')
             playerX.sock.send(coordData)
-            coordData = None
-        time.sleep(0.05)
+            coordData = []
+        time.sleep(0.5)
 thread.start_new_thread(sendData, tuple())
 
 if __name__ == '__main__':
