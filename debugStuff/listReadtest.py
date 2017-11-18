@@ -2,6 +2,7 @@ import turtle
 
 turtle.showturtle()
 turtle.penup()
+turtle.speed(0)
 f = open("coordDebug.txt","r")
 
 for line in f:
