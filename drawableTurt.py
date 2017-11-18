@@ -1,17 +1,19 @@
-import turtle
-
-class DrawableTurtle(turtle.Turtle):
-    def __init__(self):
-        turtle.Turtle.__init__(self)
+from turtle import RawTurtle, TurtleScreen
+class DrawableTurtle(RawTurtle):
+    def __init__(self, turt):
+        # ts = TurtleScreen(cv)
+        RawTurtle.__init__(self, turt.getscreen())
         self.isDrawing = False
         self.penup()
         self.speed(0)
-
-        canvas = turtle.getcanvas()
+        self.turtleRef = turt
+        canvas = turt.getcanvas()
         canvas.bind('<Button-1>',self.onDraw)
         canvas.bind('<Button1-ButtonRelease>',self.onStopDrawing)
         canvas.bind('<Motion>',self.move)
-        turtle.listen()
+        # turtle.listen()
+
+        print(turt.window_width(), turt.window_height())
 
     def onDraw(self,event):
         self.isDrawing = True
@@ -23,7 +25,7 @@ class DrawableTurtle(turtle.Turtle):
 
     def move(self,event):
         x,y = event.x, event.y
-        x = ( x-turtle.window_width()/2 )
-        y = -( y-turtle.window_height()/2 )
+        x = ( x-self.turtleRef.window_width()/2 )
+        y = -( y-self.turtleRef.window_height()/2 )
         # print(x,y)
         self.goto(x,y)

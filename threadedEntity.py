@@ -12,9 +12,28 @@ hostIP = '127.0.0.1'
 port = 5192
 sock = socket.socket()
 
+# This will store a reference to the player on the other side
 playerX = None
+
+# The receivedData is a list having data received from the other end.
+# The data is not just the coordinates of the other turtle
+# but also the information of whether the other player is actually drawing
+# or just moving the mouse.
+# The receivedData looks something like this [ "['(x,y)', '(x,y)', 'Down', '(x,y)', '(x,y)', '(x,y)', ..., 'Up']", "[ same instructions ]", ... ]
+# Note that receivedData list contains multiple strings. This is because we want to be sure that every command that is being sent
+# from the other side is executed and we don't get jagged curves instead of proper curves.
+# So to sum it up receivedData is a list of strings. Every string contains a list with instructions.
 receivedData = []
+
+# The coordData that we're gonna send is again not just coordinate data of our turtle
+# but also the penup and pendown events.
+# The coordData looks something like this [ '(x,y)', '(x,y)','Down', '(x,y)', '(x,y)', '(x,y)', ..., 'Up' ]
+# Each element in above list has been taken as a string because this helps us to use the eval function directly
+# after checking for 'Up' and 'Down' events
+# Note the difference between receivedData list and the coordData list.\
+# The coordData list is just like one string element from the receivedData list.
 coordData = []
+
 
 #If I am the server, bind to an IP
 if(SERVER):
