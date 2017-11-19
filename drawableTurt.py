@@ -37,6 +37,9 @@ class DrawableTurtle(RawTurtle):
         # print(x,y)
         self.goto(x,y)
 
+    def getLastPos(self):
+        return self.pos()
+
 if __name__ == '__main__':
     import turtle
     t = DrawableTurtle(turtle.getcanvas())

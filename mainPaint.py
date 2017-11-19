@@ -15,8 +15,9 @@ def updateCoordData(event):
 
     #cast the coord tuple (x,y) to str
     #so that we can use eval(str) directly
-    s = str(turt.pos())
-    threadedEntity.coordData.append(s)
+    if(turt.isDrawing):
+        s = str(turt.pos())
+        threadedEntity.coordData.append(s)
 
 #Bind the mouse motion to the above function
 turtle.getcanvas().bind('<Motion>', updateCoordData, add = "+")
@@ -25,6 +26,8 @@ turtle.getcanvas().bind('<Motion>', updateCoordData, add = "+")
 def appendPenUp(event):
     threadedEntity.coordData.append("Up")
 def appendPenDown(event):
+    #So as to move the turtle to the last position for the player on the other side
+    threadedEntity.coordData.append(str(turt.getLastPos()))
     threadedEntity.coordData.append("Down")
 turtle.getcanvas().bind('<Button-1>', appendPenDown, add="+")
 turtle.getcanvas().bind('<Button1-ButtonRelease>', appendPenUp, add="+")
