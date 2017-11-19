@@ -11,3 +11,8 @@ class TurtleInstance(turtle.Turtle):
         self.name = name
     def setColor(self,color):
         self.color = color
+
+if __name__ == '__main__':
+    t = TurtleInstance()
+    t.forward(50)
+    turtle.mainloop()

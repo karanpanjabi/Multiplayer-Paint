@@ -12,5 +12,7 @@ print("connected")
 l = client.recv(1024)
 print(l)
 
+s = input()
+
 client.close()
 serv.close()

@@ -35,21 +35,19 @@ receivedData = []
 coordData = []
 
 
-#If I am the server, bind to an IP
-if(SERVER):
-    sock.bind((hostIP,port))
-    sock.listen(5)
-
 #listen for connections if I'm the server
 #else just connect to the server
 #assign the received socket to playerX
 def Connect():
     global playerX
     if(SERVER):
+        sock.bind((hostIP,port))
+        sock.listen(5)
         playerX, addr = sock.accept()
         playerX = Entity(playerX)
     else:
         sock.connect((hostIP,port))
+        # sock.send(bytes("Connectino",'UTF-8'))
         playerX = Entity(sock)
     print("Connected!")
 

@@ -1,13 +1,13 @@
-import turtle, time, threadedEntity
+import turtle, time
 from drawableTurt import DrawableTurtle
 import _thread as thread
 from time import sleep
 
-turtle.listen()
-#hiding default turtle
-turtle.hideturtle()
+
 #Creating our turtle
-turt = DrawableTurtle(turtle)
+turt = DrawableTurtle(turtle.getcanvas())
+
+import threadedEntity
 
 #Append our turtle's data to
 #threadedEntity.coordData
