@@ -51,6 +51,9 @@ def Connect():
         playerX = Entity(sock)
     print("Connected!")
 
+    #Changing the color of the other player to red
+    playerX.turtle.setColor("red")
+
 #start a thread to connect to the other side and
 #not make the importing module wait
 thread.start_new_thread(Connect, tuple())

@@ -10,7 +10,7 @@ class TurtleInstance(turtle.Turtle):
     def setName(self,name):
         self.name = name
     def setColor(self,color):
-        self.color = color
+        self.pencolor(color)
 
 if __name__ == '__main__':
     t = TurtleInstance()
