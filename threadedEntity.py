@@ -66,7 +66,11 @@ def sendData():
         #Empty out coordData once the data is sent
         if( playerX is not None and len(coordData)>0 ):
             data = bytes(str(coordData),'UTF-8')
-            playerX.sock.send(data)
+            try:
+                playerX.sock.send(data)
+            except Exception:
+                print("The other side disconnected")
+                break
             coordData = []
         sleep(0.5)
 
@@ -83,7 +87,11 @@ def updateReceivedData():
         #Check if we're connected and the object is of type Entity
         # and then receive the data
         if(type(playerX) == Entity):
-            data = playerX.sock.recv(1024)
+            try:
+                data = playerX.sock.recv(1024)
+            except Exception:
+                print("The other side disconnected")
+                break
             data = data.decode()
             #Exit out of the loop if the other side disconnects
             if(not data):
