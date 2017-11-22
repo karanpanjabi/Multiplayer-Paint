@@ -49,7 +49,7 @@ def updatePlayerX():
                     #inst -> instruction
                     try:
                         inst = otherTurtleRefStr+inst
-                        print(inst)
+                        # print(inst)
                         eval(inst)
 
                     except Exception as e:
