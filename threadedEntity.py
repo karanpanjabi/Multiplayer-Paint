@@ -91,7 +91,7 @@ def updateReceivedData():
         # and then receive the data
         if(type(playerX) == Entity):
             try:
-                data = playerX.sock.recv(1024)
+                data = playerX.sock.recv(2048)
             except Exception:
                 print("The other side disconnected")
                 break

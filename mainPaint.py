@@ -17,21 +17,23 @@ def updateCoordData(event):
     #so that we can use eval(str) directly
     if(turt.isDrawing):
         s = str(turt.pos())
-        threadedEntity.coordData.append(s)
+        threadedEntity.coordData.append("goto"+s)
 
 #Bind the mouse motion to the above function
 turtle.getcanvas().bind('<Motion>', updateCoordData, add = "+")
 
 #append penup and pendown events
 def appendPenUp(event):
-    threadedEntity.coordData.append("Up")
+    threadedEntity.coordData.append("penup()")
 def appendPenDown(event):
     #So as to move the turtle to the last position for the player on the other side
-    threadedEntity.coordData.append(str(turt.getLastPos()))
-    threadedEntity.coordData.append("Down")
+    threadedEntity.coordData.append("goto"+str(turt.getLastPos()))
+    threadedEntity.coordData.append("pendown()")
 turtle.getcanvas().bind('<Button-1>', appendPenDown, add="+")
 turtle.getcanvas().bind('<Button1-ButtonRelease>', appendPenUp, add="+")
 
+
+otherTurtleRefStr = "threadedEntity.playerX.turtle."
 #Update the other player's (playerX) position on our screen every 0.5s
 def updatePlayerX():
     while True:
@@ -45,13 +47,13 @@ def updatePlayerX():
                 l = eval(l)
                 for inst in l:
                     #inst -> instruction
-                    if(inst == "Up"):
-                        threadedEntity.playerX.turtle.penup()
-                    elif(inst == "Down"):
-                        threadedEntity.playerX.turtle.pendown()
-                    else:
-                        x,y = eval(inst)
-                        threadedEntity.playerX.turtle.goto(x,y)
+                    try:
+                        inst = otherTurtleRefStr+inst
+                        print(inst)
+                        eval(inst)
+
+                    except Exception as e:
+                        print(e)
 
             #Flush out the receivedData list so that its not executed again
             threadedEntity.receivedData = []
