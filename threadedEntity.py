@@ -14,6 +14,7 @@ sock = socket.socket()
 
 # This will store a reference to the player on the other side
 playerX = None
+#I'm planning to use a list here to have a pool of clients connected to server, to make this truly multiplayer.
 
 # The receivedData is a list having data received from the other end.
 # The data is not just the coordinates of the other turtle
